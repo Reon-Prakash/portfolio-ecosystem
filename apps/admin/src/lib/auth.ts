@@ -27,9 +27,10 @@ export const authOptions: NextAuthOptions = {
       },
 
       async authorize(credentials) {
-        console.log("LOGIN ATTEMPT", credentials?.email);
+        console.log("LOGIN ATTEMPT:", credentials?.email);
 
         if (!credentials?.email || !credentials?.password) {
+          console.log("MISSING CREDENTIALS");
           return null;
         }
 
@@ -37,12 +38,14 @@ export const authOptions: NextAuthOptions = {
           where: { email: credentials.email },
         });
 
-        console.log("DB USER", admin);
+        console.log("DB USER:", admin);
 
         if (!admin) {
           console.log("NO USER FOUND");
           return null;
         }
+
+        console.log("DB HASH:", admin.password);
 
         const valid = await bcrypt.compare(
           credentials.password,
@@ -55,6 +58,8 @@ export const authOptions: NextAuthOptions = {
           console.log("PASSWORD WRONG");
           return null;
         }
+
+        console.log("LOGIN SUCCESS");
 
         return {
           id: admin.id,
