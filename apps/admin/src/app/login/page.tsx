@@ -10,6 +10,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("Admin@12345");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,9 +33,9 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-md bg-white rounded-lg shadow p-8">
-        <h1 className="text-2xl font-bold text-center mb-6">Admin Login</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="w-full max-w-md bg-white p-6 rounded shadow">
+        <h1 className="text-2xl font-semibold mb-6 text-center">Admin Login</h1>
 
         {error && (
           <div className="mb-4 p-3 rounded bg-red-50 text-red-600 text-sm">
@@ -56,13 +57,24 @@ export default function LoginPage() {
 
           <div>
             <label className="block text-sm font-medium mb-1">Password</label>
-            <input
-              className="w-full border rounded px-3 py-2"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+
+            <div className="relative">
+              <input
+                className="w-full border rounded px-3 py-2 pr-10"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-sm text-gray-600"
+              >
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            </div>
           </div>
 
           <button
