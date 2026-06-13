@@ -25,7 +25,10 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
+
       async authorize(credentials) {
+        console.log("LOGIN ATTEMPT", credentials?.email);
+
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
@@ -34,13 +37,22 @@ export const authOptions: NextAuthOptions = {
           where: { email: credentials.email },
         });
 
+        console.log("DB USER", admin);
+
         if (!admin) {
+          console.log("NO USER FOUND");
           return null;
         }
 
-        const valid = await bcrypt.compare(credentials.password, admin.password);
+        const valid = await bcrypt.compare(
+          credentials.password,
+          admin.password,
+        );
+
+        console.log("PASSWORD VALID:", valid);
 
         if (!valid) {
+          console.log("PASSWORD WRONG");
           return null;
         }
 
@@ -51,11 +63,14 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+
   session: {
     strategy: "jwt",
   },
+
   pages: {
     signIn: "/login",
   },
+
   secret: process.env.NEXTAUTH_SECRET,
 };
