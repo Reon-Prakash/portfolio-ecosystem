@@ -1,0 +1,57 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f3f4f6;
+  color: #111827;
+}
+
+/* IMPORTANT: fix Tailwind overrides */
+html,
+body {
+  color: #111827;
+}
+
+/* ensure all text is visible */
+p,
+span,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th,
+td,
+label {
+  color: #111827;
+}
+
+/* inputs fix */
+input,
+textarea,
+select {
+  background: white;
+  color: #111827;
+  border: 1px solid #d1d5db;
+}
+
+/* placeholders */
+input::placeholder,
+textarea::placeholder {
+  color: #6b7280;
+}
+
+/* table header fix */
+th {
+  color: #374151;
+}
+
+/* buttons should inherit readable text */
+button {
+  color: inherit;
+}

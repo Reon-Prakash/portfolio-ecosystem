@@ -1,0 +1,21 @@
+{
+  "name": "portfolio-ecosystem",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:portfolio": "npm --workspace portfolio run dev",
+    "dev:admin": "npm --workspace admin run dev",
+    "dev": "concurrently \"npm run dev:portfolio\" \"npm run dev:admin\"",
+    "build": "npm --workspace portfolio run build && npm --workspace admin run build",
+    "db:generate": "npm --workspace @portfolio/database run generate",
+    "db:push": "npm --workspace @portfolio/database run push",
+    "db:seed": "npm --workspace @portfolio/database run seed"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.4.5"
+  }
+}
